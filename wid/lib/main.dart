@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wid/screens/widgets_conteudo.dart';
+import 'package:wid/screens/widgets_layout.dart';
 import 'package:wid/widgets/titulo_secao.dart';
 
 void main() {
@@ -16,102 +18,73 @@ class MyApp extends StatelessWidget { //arvore de widgets -> bloco de constru√ß√
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold( //aplicar temas necessarios para a tela
-        appBar: AppBar(title: Text("Widget de conteudo"),),//bloco 1
-        body: ListView(//bloco 2
-          padding: EdgeInsets.all(16),
-          children: [
-          TituloSecao(titulo: "Textos"),
-
-          Text("Texto de exemplo",
-          style: TextStyle( fontSize: 18) ,),
-  
-          Divider(),
-          
-          TituloSecao(titulo: "Imagem"),
-          Image.network(
-            'https://picsum.photos/id/237/200/300',
-            height: 240,
-          ),
-
-          Divider(),
-          TituloSecao(titulo: "Icone"),
-          Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: 
-          [
-            Icon(
-              Icons.favorite,
-              color: Colors.red,
-              size: 32,),
-            Icon(
-              Icons.airplane_ticket,
-              color: Colors.amber,
-              size: 32,),
-
-            Icon(
-              Icons.settings,
-              color: Colors.blue,
-              size: 32,),  
-          ],),
-
-          Divider(),
-          TituloSecao(titulo: "Elevated Botao"),
-          ElevatedButton(onPressed: (){}, child: Text("Clique"),),
-
-          ]
-        ),
-      ),
+      home: ListContents(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ListContents extends StatelessWidget {
+  final List<CatalogoItem> secoes = [
+    CatalogoItem(
+      titulo: "Widgets de conteudo",
+      icone: Icons.text_fields,
+      descricao:"Desc 1",
+      destino: WidgetsConteudo(),
+    ),
+    CatalogoItem(
+      titulo: "Widgets de layout",
+      icone: Icons.star,
+      descricao:"Desc 2",
+      destino: WidgetsLayout(),
+    ),
+  ];
 
-  final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  ListContents({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+        appBar: AppBar(title: Text("Catalogo de widgets")),
+        body: GridView.count(
+          crossAxisCount: 2,
+          padding: EdgeInsets.all(16),
+          crossAxisSpacing: 16,
+          childAspectRatio: 1.5,
+          children: secoes
+          .map(
+            (item) => GestureDetector(  
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => item.destino),),
+            child:  Card(
+              elevation: 4,
+              child: Padding(padding: 
+                EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    Icon(item.icone, size: 48, color: Colors.blue,),
+                    Text(item.titulo, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,), maxLines: 2, overflow: TextOverflow.ellipsis,),
+                    Text(item.descricao, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: Colors.grey,), maxLines: 3, overflow: TextOverflow.ellipsis,),
+                  ],
+                ),
+              ),
             ),
-          ],
+          ),).toList(),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      );
   }
 }
+
+class CatalogoItem{
+  final String titulo;
+  final IconData icone;
+  final String descricao;
+  final Widget destino;
+
+  CatalogoItem({
+    required this.titulo,
+    required this.icone,
+    required this.descricao,
+    required this.destino,
+  });
+}
+
