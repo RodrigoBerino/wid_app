@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wid/screens/ciclo_stateful_parent.dart';
+import 'package:wid/screens/contador.dart';
 import 'package:wid/screens/widgets_conteudo.dart';
 import 'package:wid/screens/widgets_layout.dart';
 import 'package:wid/widgets/titulo_secao.dart';
@@ -36,6 +38,18 @@ class ListContents extends StatelessWidget {
       icone: Icons.star,
       descricao:"Desc 2",
       destino: WidgetsLayout(),
+    ),
+    CatalogoItem(
+      titulo: "Ciclos de vida statefull",
+      icone: Icons.sync,
+      descricao:"Desc 3",
+      destino: CicloStatefulParent(),
+    ),
+    CatalogoItem(
+      titulo: "Contador",
+      icone: Icons.money,
+      descricao:"Desc 4",
+      destino: Contador(),
     ),
   ];
 

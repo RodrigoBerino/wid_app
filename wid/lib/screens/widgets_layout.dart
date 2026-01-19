@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wid/widgets/titulo_secao.dart';
 
+//initstate - inicio, widget adicionado na arvore
+//didchangesdependices - depois do init, reflete mudança de configurações globais
+//build - desenha na tela
+//didupdatewidget - 
+//dispose - widget removido e limpeza de recursos
+//setstate - chama o build() atualiza os dados internamente no widget
+
 class WidgetsLayout extends StatelessWidget {
   const WidgetsLayout({super.key});
 
