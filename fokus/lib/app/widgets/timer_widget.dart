@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:fokus/app/utils/app_config.dart';
+
+//navigator stack -> arquitetura do flutter para navegar entre telas
+//LIFO
+// rotas em forma de pilhas
+
 
 class TimerWidget extends StatefulWidget {
   final int initialMinutes;
@@ -48,7 +52,9 @@ class _TimerWidgetState extends State<TimerWidget> {
             width: double.infinity,
             height: 56,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppConfig.buttonColor,
                 foregroundColor: Colors.white,
